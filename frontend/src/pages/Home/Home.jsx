@@ -1,8 +1,8 @@
 import React from 'react';
-import cl from './Main.module.css';
+import cl from './Home.module.css';
 import ProductCard from "../../componends/UI/ProductCard/ProductCard";
 
-const Main = () => {
+const Home = () => {
     return (
         <div className={cl.main}>
             <h1 className={cl.title}>React-Go Shop</h1>
@@ -15,4 +15,4 @@ const Main = () => {
     );
 };
 
-export default Main;
+export default Home;

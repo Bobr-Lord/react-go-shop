@@ -1,15 +1,23 @@
 import React from 'react';
 import cl from './ProductCard.module.css';
-import productImage from '../../../img/XXL.jpeg'; // путь к изображению
 
-const ProductCard = () => {
+const ProductCard = ({ title, price, description, image, onDelete }) => {
     return (
         <div className={cl.card}>
-            <img src={productImage} alt="Костюм" className={cl.image} />
+            <div className={cl.imageWrapper}>
+                <img src={image} alt={title} className={cl.image} />
+                {onDelete && (
+                    <button className={cl.deleteButton} onClick={onDelete}>
+                        &times;
+                    </button>
+                )}
+            </div>
             <div className={cl.content}>
-                <h3 className={cl.title}>чёрный классический костюм</h3>
-                <p className={cl.price}>11 900 <span>₽</span></p>
-                <p className={cl.subtitle}>чёрный костюм тройка</p>
+                <h3 className={cl.title}>{title}</h3>
+                <p className={cl.price}>
+                    {price.toLocaleString()} <span>₽</span>
+                </p>
+                <p className={cl.subtitle}>{description}</p>
                 <button className={cl.button}>В корзину</button>
             </div>
         </div>

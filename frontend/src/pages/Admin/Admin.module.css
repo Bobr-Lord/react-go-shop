@@ -1,0 +1,47 @@
+.admin {
+    padding: 32px;
+    background-color: #121417;
+    color: #ecf0f1;
+    min-height: 100vh;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 24px;
+}
+
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.cardWrapper {
+    position: relative;
+}
+
+.deleteButton {
+    position: absolute;
+    top: 8px;
+    right: 40px;
+    width: 28px;
+    height: 28px;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    z-index: 1;
+}
+
+.deleteButton:hover {
+    background-color: #c0392b;
+}
+

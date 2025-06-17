@@ -1,12 +1,13 @@
 import './styles/App.css'
-import Main from "./pages/Main/Main";
+import Home from "./pages/Home/Home";
 import Navbar from "./componends/UI/Navbar/Navbar";
+import Admin from "./pages/Admin/Admin";
 
 export default function App() {
   return (
     <div className="App">
         <Navbar />
-        <Main/>
+        <Admin/>
     </div>
   );
 }
