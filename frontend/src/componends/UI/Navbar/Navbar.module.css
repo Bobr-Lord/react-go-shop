@@ -1,0 +1,21 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    height: 56px;
+    background-color: #1f2227; /* тёмно-серый, не сливается с фоном */
+    gap: 24px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbarItem {
+    color: #ecf0f1;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.navbarItem:hover {
+    color: #1abc9c;
+}

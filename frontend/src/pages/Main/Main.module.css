@@ -1,0 +1,22 @@
+.main {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #121417; /* почти чёрный */
+    min-height: calc(100vh - 56px);
+    color: #ecf0f1;
+}
+
+.title {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.description {
+    font-size: 18px;
+    font-weight: 400;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #a0a0a0;
+    line-height: 1.6;
+}
