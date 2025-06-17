@@ -7,9 +7,14 @@ import (
 )
 
 type Config struct {
-	ServerHost string `env:"SERVER_HOST" envDefault:"0.0.0.0"`
-	ServerPort string `env:"SERVER_PORT" env-required:"true"`
-	AppEnv     string `env:"APP_ENV" envDefault:"dev"`
+	ServerHost     string `env:"SERVER_HOST" envDefault:"0.0.0.0"`
+	ServerPort     string `env:"SERVER_PORT" env-required:"true"`
+	PostgresUser   string `env:"POSTGRES_USER" required:"true"`
+	PostgresPass   string `env:"POSTGRES_PASSWORD" required:"true"`
+	PostgresHost   string `env:"POSTGRES_HOST" required:"true"`
+	PostgresPort   string `env:"POSTGRES_PORT" required:"true"`
+	PostgresDBName string `env:"POSTGRES_DB_NAME" required:"true"`
+	AppEnv         string `env:"APP_ENV" envDefault:"dev"`
 }
 
 func NewConfig() (*Config, error) {
