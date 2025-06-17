@@ -22,3 +22,8 @@ func ParseHttpError(err error) (int, string, error) {
 	}
 	return 0, "", err
 }
+
+func IsHTTPError(err error) bool {
+	_, ok := err.(*HttpError)
+	return ok
+}

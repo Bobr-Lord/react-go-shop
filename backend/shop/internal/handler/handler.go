@@ -16,11 +16,11 @@ func NewHandler(svc *service.Service) *Handler {
 	}
 }
 
-func (Handler) InitRouter() *gin.Engine {
+func (h *Handler) InitRouter() *gin.Engine {
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.New()
 	r.Use(middleware.LoggerMiddleware())
-	r.POST("/api/product", func(c *gin.Context) {})
+	r.POST("/api/product", h.CreateProduct)
 
 	return r
 }
