@@ -13,3 +13,11 @@ func (s *Service) CreateProduct(req *models.CreateProductRequest) error {
 	}
 	return nil
 }
+
+func (s *Service) GetAllProducts() ([]models.Product, error) {
+	products, err := s.r.GetAllProducts()
+	if err != nil {
+		return nil, response.NewCustomError(err.Error(), http.StatusInternalServerError)
+	}
+	return products, nil
+}

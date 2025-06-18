@@ -10,8 +10,8 @@ import (
 )
 
 func (h *Handler) CreateProduct(c *gin.Context) {
-	requestID := c.GetHeader(middleware.RequestIdKey)
-	if requestID == "" {
+	requestID, ok := c.Get(middleware.RequestIdKey)
+	if !ok {
 		requestID = "unknown"
 	}
 	loger := logrus.WithFields(logrus.Fields{
@@ -45,5 +45,37 @@ func (h *Handler) CreateProduct(c *gin.Context) {
 	HTTPResp := models.CreateProductResponse{
 		Response: "success",
 	}
+	loger.Infof("response %v", HTTPResp)
+
 	c.JSON(200, HTTPResp)
+}
+
+func (h *Handler) GetAllProducts(c *gin.Context) {
+	requestID, ok := c.Get(middleware.RequestIdKey)
+	if !ok {
+		requestID = "unknown"
+	}
+	loger := logrus.WithFields(logrus.Fields{
+		"request_id": requestID,
+	})
+	loger.Info("Handle GetAllProducts")
+
+	products, err := h.svc.GetAllProducts()
+	if err != nil {
+		loger.Errorf("failed to get products: %v", err)
+		errResp := err
+		if ok := response.IsHTTPError(err); !ok {
+			errResp = &response.HttpError{
+				Code:    http.StatusInternalServerError,
+				Message: err.Error(),
+			}
+		}
+		c.JSON(http.StatusInternalServerError, errResp)
+		return
+	}
+	resp := models.GetAllProductsResponse{
+		Products: products,
+	}
+	loger.Infof("response %v", resp)
+	c.JSON(200, resp)
 }

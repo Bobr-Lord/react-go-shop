@@ -48,7 +48,6 @@ func main() {
 			logrus.Errorf("server run error: %v", err)
 		}
 	}()
-
 	wait := make(chan os.Signal, 1)
 	signal.Notify(wait, syscall.SIGINT, syscall.SIGTERM)
 	<-wait
