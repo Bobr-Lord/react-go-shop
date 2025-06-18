@@ -2,22 +2,35 @@ import React from 'react';
 import cl from "./AddItemForm.module.css";
 import MyInput from "../MyInput/MyInput";
 import MyButton from "../MyButton/MyButton";
+import ProductService from "../../../api/ProductService";
 
 const AddItemForm = ({form, setForm, products, setProducts}) => {
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
-    const handleAddProduct = () => {
+    const handleAddProduct = async () => {
         const newProduct = {
-            id: Date.now(),
-            title: form.title,
+            name: form.title,
             price: Number(form.price),
             description: form.description,
-            image: form.image
+            image: form.image,
+            category: "product",
         };
-        setProducts([newProduct, ...products]);
-        setForm({ title: '', price: '', description: '', image: '' });
+        console.log(newProduct);
+        try {
+            const savedProduct = await ProductService.addProduct(newProduct);
+            console.log('запрос на добавление товара:', savedProduct);
+            setProducts([newProduct, ...products]);
+            setForm({ title: '', price: '', description: '', image: '' });
+        } catch (err) {
+            console.error('Ошибка при добавлении товара:', err);
+        }
     };
+
+
+
+
+
     return (
         <div className={cl.form}>
             <MyInput
