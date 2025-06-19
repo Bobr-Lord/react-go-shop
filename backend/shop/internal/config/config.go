@@ -14,6 +14,7 @@ type Config struct {
 	PostgresHost   string `env:"POSTGRES_HOST" required:"true"`
 	PostgresPort   string `env:"POSTGRES_PORT" required:"true"`
 	PostgresDBName string `env:"POSTGRES_DB_NAME" required:"true"`
+	PathPublicKey  string `env:"PATH_PUBLIC_KEY" required:"true"`
 	AppEnv         string `env:"APP_ENV" envDefault:"dev"`
 }
 

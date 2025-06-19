@@ -39,7 +39,7 @@ func main() {
 	}
 	repo := repository.NewRepository(db)
 	svc := service.NewService(repo)
-	hndl := handler.NewHandler(svc)
+	hndl := handler.NewHandler(svc, cfg)
 	srv := server.NewServer()
 	go func() {
 		logrus.Info("server start")
