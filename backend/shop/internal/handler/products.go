@@ -29,7 +29,8 @@ func (h *Handler) CreateProduct(c *gin.Context) {
 		return
 	}
 
-	if err := h.svc.CreateProduct(&req); err != nil {
+	id, err := h.svc.CreateProduct(&req)
+	if err != nil {
 		loger.Errorf("failed to create product: %v", err)
 		errResp := err
 		if ok := response.IsHTTPError(err); !ok {
@@ -43,7 +44,7 @@ func (h *Handler) CreateProduct(c *gin.Context) {
 	}
 
 	HTTPResp := models.CreateProductResponse{
-		Response: "success",
+		ID: id,
 	}
 	loger.Infof("response %v", HTTPResp)
 
@@ -76,6 +77,44 @@ func (h *Handler) GetAllProducts(c *gin.Context) {
 	resp := models.GetAllProductsResponse{
 		Products: products,
 	}
-	loger.Infof("response %v", resp)
+	loger.Info("get products success")
 	c.JSON(200, resp)
+}
+
+func (h *Handler) DeleteProduct(c *gin.Context) {
+	requestID, ok := c.Get(middleware.RequestIdKey)
+	if !ok {
+		requestID = "unknown"
+	}
+	loger := logrus.WithFields(logrus.Fields{
+		"request_id": requestID,
+	})
+	loger.Info("Handle DeleteProduct")
+	id := c.Param("id")
+	if id == "" {
+		errResp := response.HttpError{
+			Code:    http.StatusBadRequest,
+			Message: "invalid id",
+		}
+		c.JSON(http.StatusBadRequest, errResp)
+		return
+	}
+
+	if err := h.svc.DeleteProduct(id); err != nil {
+		loger.Errorf("failed to delete product: %v", err)
+		errResp := err
+		if ok := response.IsHTTPError(err); !ok {
+			errResp = &response.HttpError{
+				Code:    http.StatusInternalServerError,
+				Message: err.Error(),
+			}
+		}
+		c.JSON(http.StatusInternalServerError, errResp)
+		return
+	}
+	HTTPResp := models.DeleteProductResponse{
+		Response: "success",
+	}
+	loger.Infof("response %v", HTTPResp)
+	c.JSON(200, HTTPResp)
 }

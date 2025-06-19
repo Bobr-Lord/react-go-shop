@@ -22,7 +22,7 @@ func (h *Handler) InitRouter() *gin.Engine {
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.New()
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:3000"},
+		AllowOrigins:     []string{"http://localhost:3000", "http://192.168.1.69:3000"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
@@ -33,6 +33,7 @@ func (h *Handler) InitRouter() *gin.Engine {
 	r.Use(middleware.LoggerMiddleware())
 	r.POST("/api/product", h.CreateProduct)
 	r.GET("/api/products", h.GetAllProducts)
+	r.DELETE("/api/product/:id", h.DeleteProduct)
 
 	return r
 }

@@ -17,9 +17,17 @@ type CreateProductRequest struct {
 	ImageUrl    string `json:"image" binding:"required"`
 }
 type CreateProductResponse struct {
-	Response string `json:"response"`
+	ID string `json:"id"`
 }
 
+type GetAllProductsRequest struct {
+}
 type GetAllProductsResponse struct {
 	Products []Product `json:"products"`
+}
+
+type DeleteProductRequest struct {
+}
+type DeleteProductResponse struct {
+	Response string `json:"response"`
 }
