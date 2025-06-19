@@ -2,20 +2,33 @@ import React from 'react';
 import MyInput from "../../componends/UI/MyInput/MyInput";
 import MyButton from "../../componends/UI/MyButton/MyButton";
 import cl from "./Register.module.css";
+import AuthService from "../../api/AuthService";
+import {useNavigate} from "react-router-dom";
 
 const Register = () => {
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const navigate = useNavigate();
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         console.log(firstName, lastName, email, password);
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        setPassword("");
+        try {
+            const res = await AuthService.register(firstName, lastName, email, password);
+            console.log(res.data.id);
+            alert("Регистрация успешна!");
+            navigate("/login");
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setFirstName("");
+            setLastName("");
+            setEmail("");
+            setPassword("");
+        }
+
     }
 
     return (
@@ -37,6 +50,7 @@ const Register = () => {
                     />
                     <MyInput
                         className={cl.input}
+                        type="email"
                         value={email}
                         placeholder="Введите почту"
                         onChange={(e) => setEmail(e.target.value)}

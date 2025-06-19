@@ -2,16 +2,27 @@ import React from 'react';
 import cl from "./Login.module.css";
 import MyInput from "../../componends/UI/MyInput/MyInput";
 import MyButton from "../../componends/UI/MyButton/MyButton";
+import AuthService from "../../api/AuthService";
+import {useNavigate} from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-
-    function handleLogin(e) {
+    const navigate = useNavigate();
+    async function handleLogin(e) {
         e.preventDefault();
         console.log("Логин:", email, password);
-        setEmail('');
-        setPassword('');
+
+        try {
+            const res = await AuthService.login(email, password);
+            console.log(res.data);
+            navigate("/");
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setEmail('');
+            setPassword('');
+        }
     }
 
     return (
