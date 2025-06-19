@@ -16,19 +16,27 @@ const MenuItem = ({products, setProducts}) => {
         }
     };
     return (
-        <div className={cl.grid}>
-            {products.map(product => (
-                <div key={product.id} className={cl.cardWrapper}>
-                    <ProductCard
-                        title={product.title}
-                        price={product.price}
-                        description={product.description}
-                        image={product.image}
-                        onDelete={() => handleDelete(product.id)}
-                    />
+        <>
+            {(products === null || products.length === 0) ? (
+                <div className={cl.noProducts}>
+                    <h1>No products found.</h1>
                 </div>
-            ))}
-        </div>
+            ) : (
+                <div className={cl.grid}>
+                    {products.map(product => (
+                        <div key={product.id} className={cl.cardWrapper}>
+                            <ProductCard
+                                title={product.title}
+                                price={product.price}
+                                description={product.description}
+                                image={product.image}
+                                onDelete={() => handleDelete(product.id)}
+                            />
+                        </div>
+                    ))}
+                </div>
+            )}
+        </>
     );
 };
 

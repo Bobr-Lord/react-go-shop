@@ -7,3 +7,12 @@
 .cardWrapper {
     position: relative;
 }
+
+.noProducts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    width: 100%;
+    text-align: center;
+}

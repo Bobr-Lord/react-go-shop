@@ -21,7 +21,11 @@ const AddItemForm = ({form, setForm, products, setProducts}) => {
             console.log('запрос на добавление товара:', res);
             newProduct.id = res.data.id
             console.log(newProduct);
-            setProducts([newProduct, ...products]);
+            if (products === null) {
+                setProducts([newProduct]);
+            } else {
+                setProducts([newProduct, ...products]);
+            }
             setForm({ title: '', price: '', description: '', image: '' });
         } catch (err) {
             console.error('Ошибка при добавлении товара:', err);
