@@ -16,10 +16,11 @@ const AddItemForm = ({form, setForm, products, setProducts}) => {
             image: form.image,
             category: "product",
         };
-        console.log(newProduct);
         try {
-            const savedProduct = await ProductService.addProduct(newProduct);
-            console.log('запрос на добавление товара:', savedProduct);
+            const res = await ProductService.addProduct(newProduct);
+            console.log('запрос на добавление товара:', res);
+            newProduct.id = res.data.id
+            console.log(newProduct);
             setProducts([newProduct, ...products]);
             setForm({ title: '', price: '', description: '', image: '' });
         } catch (err) {

@@ -1,10 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import cl from './Admin.module.css';
 import AddItemForm from "../../componends/UI/AddItemForm/AddItemForm";
-import MenuItem from "../../componends/UI/MenuItem/MenuItem";
-import ProductService from "../../api/ProductService";
-import {useFetching} from "../../hooks/useFetching";
-import Loader from "../../componends/UI/Loader/Loader";
 import MenuItemLoader from "../../componends/MenuItemLoader/MenuItemLoader";
 
 const Admin = () => {

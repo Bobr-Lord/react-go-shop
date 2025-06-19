@@ -1,19 +1,26 @@
 import React from 'react';
 import './styles/App.css'
-import Home from "./pages/Home/Home";
 import Navbar from "./componends/UI/Navbar/Navbar";
-import Admin from "./pages/Admin/Admin";
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./componends/AppRouter";
-import Loader from "./componends/UI/Loader/Loader";
+import {AuthContext} from "./context";
 
 export default function App() {
-  return (
-      <BrowserRouter>
-          <Navbar />
-          <AppRouter/>
-      </BrowserRouter>
+    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+    const [isAdmin, setIsAdmin] = React.useState(true);
 
-  );
+    return (
+      <AuthContext.Provider value={{
+          isLoggedIn,
+          setIsLoggedIn,
+          isAdmin,
+          setIsAdmin,
+      }}>
+          <BrowserRouter>
+              <Navbar />
+              <AppRouter/>
+          </BrowserRouter>
+      </AuthContext.Provider>
+    );
 }
 

@@ -1,10 +1,19 @@
 import React from 'react';
 import ProductCard from "../ProductCard/ProductCard";
 import cl from "./MenuItem.module.css"
+import ProductService from "../../../api/ProductService";
 
 const MenuItem = ({products, setProducts}) => {
-    const handleDelete = (id) => {
-        setProducts(products.filter(p => p.id !== id));
+    const handleDelete = async (id) => {
+        console.log(id);
+        try {
+            const res = await ProductService.deleteProduct(id, products);
+            console.log(res.data);
+            setProducts(products.filter(p => p.id !== id));
+
+        } catch (e) {
+            console.error(e);
+        }
     };
     return (
         <div className={cl.grid}>
