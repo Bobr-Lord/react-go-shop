@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/Bobr-Lord/react-go-shop/tree/main/backend/auth/internal/config"
 	"github.com/Bobr-Lord/react-go-shop/tree/main/backend/auth/internal/handler"
+	"github.com/Bobr-Lord/react-go-shop/tree/main/backend/auth/internal/repository"
 	"github.com/Bobr-Lord/react-go-shop/tree/main/backend/auth/internal/server"
 	"github.com/Bobr-Lord/react-go-shop/tree/main/backend/auth/internal/service"
 	"github.com/gin-gonic/gin"
@@ -31,8 +32,12 @@ func main() {
 		logrus.SetLevel(logrus.InfoLevel)
 	}
 	logrus.Infof("config: %+v", cfg)
-
-	svc := service.NewService()
+	db, err := repository.NewPostgres(cfg)
+	if err != nil {
+		logrus.Fatal(err)
+	}
+	repo := repository.NewRepository(db)
+	svc := service.NewService(repo, cfg)
 	hndl := handler.NewHandler(svc)
 	srv := server.NewServer()
 
