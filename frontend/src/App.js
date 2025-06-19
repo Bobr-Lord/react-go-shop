@@ -1,30 +1,30 @@
 import React, {useEffect} from 'react';
 import './styles/App.css'
 import Navbar from "./componends/UI/Navbar/Navbar";
-import {BrowserRouter, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import AppRouter from "./componends/AppRouter";
 import {AuthContext} from "./context";
+import ProductService from "./api/ProductService";
 
 
 export default function App() {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-    const [isAdmin, setIsAdmin] = React.useState(true);
+    const [isAdmin, setIsAdmin] = React.useState(false);
 
     const location = useLocation();
     const hideNavbarRoutes = ["/login", "/register"];
     const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
 
-    useEffect(() => {
-        const login = localStorage.getItem('isLoggedIn');
-        const role = localStorage.getItem('role');
-
-        if (login === 'true') {
-            setIsLoggedIn(true);
-        }
-        if (role === 'admin') {
-            setIsAdmin(true);
-        }
-    }, []);
+    useEffect( () => {
+        ProductService.getMe().then((res) => {
+            console.log(res);
+            if (res.data.role === "admin") {
+                setIsAdmin(true);
+            }
+        }).catch(err=>{
+            console.log(err)
+        })
+    }, [isLoggedIn]);
 
     return (
       <AuthContext.Provider value={{

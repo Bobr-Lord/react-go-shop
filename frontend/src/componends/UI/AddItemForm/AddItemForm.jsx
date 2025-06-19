@@ -27,8 +27,14 @@ const AddItemForm = ({form, setForm, products, setProducts}) => {
                 setProducts([newProduct, ...products]);
             }
             setForm({ title: '', price: '', description: '', image: '' });
-        } catch (err) {
-            console.error('Ошибка при добавлении товара:', err);
+        } catch (e) {
+            if (e.status === 401) {
+                alert("only admin 🙉");
+            }
+            if (e.status === 500) {
+                alert("something went wrong");
+            }
+            console.error('Ошибка при добавлении товара:', e);
         }
     };
 

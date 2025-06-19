@@ -1,12 +1,17 @@
 import React from 'react';
 import cl from './ProductCard.module.css';
+import {useLocation} from "react-router-dom";
 
 const ProductCard = ({ title, price, description, image, onDelete }) => {
+    const location = useLocation();
+    const hideDeleterRoutes = ["/"];
+    const shouldHideDelete = hideDeleterRoutes.includes(location.pathname);
+
     return (
         <div className={cl.card}>
             <div className={cl.imageWrapper}>
                 <img src={image} alt={title} className={cl.image} />
-                {onDelete && (
+                {(!shouldHideDelete) && (
                     <button className={cl.deleteButton} onClick={onDelete}>
                         &times;
                     </button>

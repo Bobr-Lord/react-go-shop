@@ -16,4 +16,9 @@ export default class ProductService {
             withCredentials: true
         });
     }
+    static async getMe() {
+        return await axios.get(`http://localhost:8080/api/me`, {
+            withCredentials: true
+        });
+    }
 }

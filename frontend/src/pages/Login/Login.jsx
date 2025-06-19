@@ -1,14 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import cl from "./Login.module.css";
 import MyInput from "../../componends/UI/MyInput/MyInput";
 import MyButton from "../../componends/UI/MyButton/MyButton";
 import AuthService from "../../api/AuthService";
 import {useNavigate} from "react-router-dom";
+import {AuthContext} from "../../context";
 
 const Login = () => {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const navigate = useNavigate();
+    const {setIsLoggedIn} = useContext(AuthContext);
     async function handleLogin(e) {
         e.preventDefault();
         console.log("Логин:", email, password);
@@ -16,9 +18,11 @@ const Login = () => {
         try {
             const res = await AuthService.login(email, password);
             console.log(res.data);
+            setIsLoggedIn(true);
             navigate("/");
         } catch (e) {
             console.error(e);
+            alert("Неверный логин или пароль")
         } finally {
             setEmail('');
             setPassword('');

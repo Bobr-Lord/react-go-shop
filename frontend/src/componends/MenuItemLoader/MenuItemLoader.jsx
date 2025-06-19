@@ -18,10 +18,11 @@ const MenuItemLoader = ({products, setProducts}) => {
     return (
         <div>
             {ProductError && <h1>Произошла ошибка</h1>}
-            {(isLoading)
+            {!ProductError && (
+                (isLoading)
                 ? <div style={{display: "flex", justifyContent: "center", marginTop: 50}}> <Loader/> </div>
                 : <MenuItem products={products} setProducts={setProducts} />
-            }
+            )}
         </div>
     );
 };

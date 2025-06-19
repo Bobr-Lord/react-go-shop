@@ -12,7 +12,13 @@ const MenuItem = ({products, setProducts}) => {
             setProducts(products.filter(p => p.id !== id));
 
         } catch (e) {
-            console.error(e);
+            if (e.status === 401) {
+                alert("only admin 🙉");
+            }
+            if (e.status === 500) {
+                alert("something went wrong");
+            }
+            console.log(e.status);
         }
     };
     return (
