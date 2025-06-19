@@ -11,7 +11,7 @@ const (
 	IDKey   = "id"
 )
 
-func AuthMiddleware(publicKeyPath string) gin.HandlerFunc {
+func AuthAdminMiddleware(publicKeyPath string) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		requestID, ok := c.Get(RequestIdKey)
 		if !ok {
@@ -41,6 +41,12 @@ func AuthMiddleware(publicKeyPath string) gin.HandlerFunc {
 		claims, err := myJWT.ValidateJWT(tokenStr, rsa)
 		if err != nil {
 			loger.Errorf("validate jwt failed: %v", err)
+			c.AbortWithStatusJSON(401, gin.H{"error": "unauthorized"})
+			return
+		}
+
+		if claims["role"] != "admin" || claims["id"] == "" {
+			loger.Error("unauthorized")
 			c.AbortWithStatusJSON(401, gin.H{"error": "unauthorized"})
 			return
 		}

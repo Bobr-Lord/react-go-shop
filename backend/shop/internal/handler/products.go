@@ -118,3 +118,28 @@ func (h *Handler) DeleteProduct(c *gin.Context) {
 	loger.Infof("response %v", HTTPResp)
 	c.JSON(200, HTTPResp)
 }
+
+func (h *Handler) GetMe(c *gin.Context) {
+	requestID, ok := c.Get(middleware.RequestIdKey)
+	if !ok {
+		requestID = "unknown"
+	}
+	loger := logrus.WithFields(logrus.Fields{
+		"request_id": requestID,
+	})
+	loger.Info("Handle GetMe")
+	role, ok := c.Get(middleware.RoleKey)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, gin.H{})
+		return
+	}
+	id, ok := c.Get(middleware.RequestIdKey)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, gin.H{})
+		return
+	}
+	c.JSON(200, gin.H{
+		"id":   id,
+		"role": role,
+	})
+}

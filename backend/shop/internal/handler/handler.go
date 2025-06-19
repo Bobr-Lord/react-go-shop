@@ -37,12 +37,12 @@ func (h *Handler) InitRouter() *gin.Engine {
 	}))
 
 	r.Use(middleware.LoggerMiddleware())
-	r.Use(middleware.AuthMiddleware(h.cfg.PathPublicKey))
 	api := r.Group("/api")
 	{
-		api.POST("/product", h.CreateProduct)
-		api.GET("/products", h.GetAllProducts)
-		api.DELETE("/product/:id", h.DeleteProduct)
+		api.POST("/product", middleware.AuthAdminMiddleware(h.cfg.PathPublicKey), h.CreateProduct)
+		api.GET("/products", middleware.AuthUserMiddleware(h.cfg.PathPublicKey), h.GetAllProducts)
+		api.DELETE("/product/:id", middleware.AuthAdminMiddleware(h.cfg.PathPublicKey), h.DeleteProduct)
+		api.GET("/me", middleware.AuthUserMiddleware(h.cfg.PathPublicKey), h.GetMe)
 	}
 
 	r.GET("/", func(c *gin.Context) {
