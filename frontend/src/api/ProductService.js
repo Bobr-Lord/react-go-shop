@@ -16,4 +16,21 @@ export default class ProductService {
             withCredentials: true
         });
     }
+    static async addItemCart(id) {
+        return await axios.post(`http://localhost:8080/api/cart/item`, {
+            id: id,
+        }, {
+            withCredentials: true
+        });
+    }
+    static async deleteItemCart(id) {
+        return await axios.delete(`http://localhost:8080/api/cart/item/${id}`, {
+            withCredentials: true
+        });
+    }
+    static async getItemsCart() {
+        return await axios.get(`http://localhost:8080/api/cart/item`, {
+            withCredentials: true
+        });
+    }
 }
