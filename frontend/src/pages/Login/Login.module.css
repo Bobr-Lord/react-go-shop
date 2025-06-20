@@ -63,3 +63,22 @@
     min-height: calc(100vh - 56px);
     color: #ecf0f1;
 }
+
+.registerPrompt {
+    text-align: center;
+    font-size: 14px;
+    color: #bbb;
+    margin-top: 10px;
+}
+
+.registerLink {
+    color: #1cc29f;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 4px;
+    transition: color 0.2s ease;
+}
+
+.registerLink:hover {
+    color: #19a789;
+}

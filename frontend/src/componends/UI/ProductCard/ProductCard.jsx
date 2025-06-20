@@ -22,7 +22,7 @@ const ProductCard = ({ title, price, description, image, onDelete }) => {
                 <p className={cl.price}>
                     {price.toLocaleString()} <span>₽</span>
                 </p>
-                <p className={cl.subtitle}>{description}</p>
+                {/*<p className={cl.subtitle}>{description}</p>*/}
                 <button className={cl.button}>В корзину</button>
             </div>
         </div>

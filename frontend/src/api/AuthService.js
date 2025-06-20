@@ -19,4 +19,9 @@ export default class AuthService {
             withCredentials: true
         })
     }
+    static async getMe() {
+        return await axios.get(`http://localhost:8081/api/me`, {
+            withCredentials: true
+        });
+    }
 }

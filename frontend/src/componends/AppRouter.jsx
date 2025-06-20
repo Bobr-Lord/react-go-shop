@@ -1,21 +1,26 @@
 import React, {useContext} from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
-import {privateRoute, publicRoute} from "../routes";
+import {privateAdminRoute, privateRoute, privateUserRoute, publicRoute} from "../routes";
 import {AuthContext} from "../context";
 
 const AppRouter = () => {
-    const {isAdmin} = useContext(AuthContext);
+    const {isAdmin, isLoggedIn} = useContext(AuthContext);
     return (
         <Routes>
             {
-                isAdmin
+                isLoggedIn
                     ?
-                        privateRoute.map((route) =>
+                    (isAdmin
+                        ? privateAdminRoute.map((route) =>
                             <Route path={route.path} element={route.component} />
                         )
+                        : privateUserRoute.map((route) =>
+                            <Route path={route.path} element={route.component} />
+                        )
+                    )
                     : publicRoute.map((route) =>
                         <Route path={route.path} element={route.component} />
-                      )
+                    )
             }
 
             <Route path="*" element={<Navigate to="/" replace />} />

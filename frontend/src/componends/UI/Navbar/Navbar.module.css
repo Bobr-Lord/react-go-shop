@@ -1,11 +1,16 @@
 .navbar {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 0 24px;
     height: 56px;
-    background-color: #1f2227; /* тёмно-серый, не сливается с фоном */
-    gap: 24px;
+    background-color: #1f2227;
     font-family: 'Roboto', sans-serif;
+}
+
+.leftSection {
+    display: flex;
+    gap: 24px;
 }
 
 .navbarItem {
@@ -20,4 +25,3 @@
 .navbarItem:hover {
     color: #1abc9c;
 }
-

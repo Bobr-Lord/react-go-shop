@@ -3,7 +3,7 @@ import cl from "./Login.module.css";
 import MyInput from "../../componends/UI/MyInput/MyInput";
 import MyButton from "../../componends/UI/MyButton/MyButton";
 import AuthService from "../../api/AuthService";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {AuthContext} from "../../context";
 
 const Login = () => {
@@ -51,6 +51,9 @@ const Login = () => {
                         Войти
                     </MyButton>
                 </form>
+            </div>
+            <div className={cl.registerPrompt}>
+                У вас нет учетной записи? <Link to="/register" className={cl.registerLink}>Зарегистрироваться</Link>
             </div>
         </div>
     );
