@@ -24,8 +24,6 @@ func NewHandler(svc *service.Service, cfg *config.Config) *Handler {
 func (h *Handler) InitRouter() *gin.Engine {
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.New()
-	r.Static("/static", "./frontend/build/static")
-	r.StaticFile("/favicon.ico", "./frontend/build/favicon.ico")
 
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"http://localhost:3000", "http://192.168.1.69:3000"},
@@ -35,15 +33,23 @@ func (h *Handler) InitRouter() *gin.Engine {
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
 	}))
-
 	r.Use(middleware.LoggerMiddleware())
+
 	api := r.Group("/api")
 	{
 		api.POST("/product", middleware.AuthAdminMiddleware(h.cfg.PathPublicKey), h.CreateProduct)
-		api.GET("/products", middleware.AuthUserMiddleware(h.cfg.PathPublicKey), h.GetAllProducts)
+		api.GET("/products", h.GetAllProducts)
 		api.DELETE("/product/:id", middleware.AuthAdminMiddleware(h.cfg.PathPublicKey), h.DeleteProduct)
+		cart := api.Group("/cart")
+		cart.Use(middleware.AuthUserMiddleware(h.cfg.PathPublicKey))
+		{
+			cart.GET("/item", h.GetCartItems)
+			cart.POST("/item", h.AddCartItem)
+			cart.DELETE("/item/:id_item", h.DeleteCartItem)
+		}
 	}
-
+	r.Static("/static", "./frontend/build/static")
+	r.StaticFile("/favicon.ico", "./frontend/build/favicon.ico")
 	r.GET("/", func(c *gin.Context) {
 		c.File("./frontend/build/index.html")
 	})

@@ -1,5 +1,7 @@
 package response
 
+import "net/http"
+
 type HttpError struct {
 	Message string `json:"message"`
 	Code    int    `json:"code"`
@@ -16,11 +18,14 @@ func NewCustomError(message string, code int) *HttpError {
 	}
 }
 
-func ParseHttpError(err error) (int, string, error) {
+func ParseHttpError(err error) *HttpError {
 	if httpErr, ok := err.(*HttpError); ok {
-		return httpErr.Code, httpErr.Message, nil
+		return httpErr
 	}
-	return 0, "", err
+	return &HttpError{
+		Code:    http.StatusInternalServerError,
+		Message: err.Error(),
+	}
 }
 
 func IsHTTPError(err error) bool {

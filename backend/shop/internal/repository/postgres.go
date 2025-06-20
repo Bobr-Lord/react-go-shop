@@ -11,7 +11,8 @@ import (
 )
 
 const (
-	productTableName = "products"
+	productTableName   = "products"
+	cartItemsTableName = "cart_items"
 )
 
 func NewPostgres(cfg *config.Config) (*sqlx.DB, error) {
