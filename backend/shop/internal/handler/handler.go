@@ -42,7 +42,6 @@ func (h *Handler) InitRouter() *gin.Engine {
 		api.POST("/product", middleware.AuthAdminMiddleware(h.cfg.PathPublicKey), h.CreateProduct)
 		api.GET("/products", middleware.AuthUserMiddleware(h.cfg.PathPublicKey), h.GetAllProducts)
 		api.DELETE("/product/:id", middleware.AuthAdminMiddleware(h.cfg.PathPublicKey), h.DeleteProduct)
-		api.GET("/me", middleware.AuthUserMiddleware(h.cfg.PathPublicKey), h.GetMe)
 	}
 
 	r.GET("/", func(c *gin.Context) {

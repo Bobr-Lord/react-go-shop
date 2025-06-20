@@ -51,7 +51,7 @@ func AuthAdminMiddleware(publicKeyPath string) gin.HandlerFunc {
 			return
 		}
 
-		c.Set(RoleKey, claims["id"])
+		c.Set(IDKey, claims["id"])
 		c.Set(RoleKey, claims["role"])
 		c.Next()
 	}
