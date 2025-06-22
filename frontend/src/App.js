@@ -1,14 +1,64 @@
-import './styles/App.css'
-import Home from "./pages/Home/Home";
+import React, { useEffect, useState } from 'react';
+import './styles/App.css';
 import Navbar from "./componends/UI/Navbar/Navbar";
-import Admin from "./pages/Admin/Admin";
+import { useLocation } from "react-router-dom";
+import AppRouter from "./componends/AppRouter";
+import { AuthContext, CartContext } from "./context";
+import AuthService from "./api/AuthService";
+import ProductService from "./api/ProductService";
 
 export default function App() {
-  return (
-    <div className="App">
-        <Navbar />
-        <Admin/>
-    </div>
-  );
-}
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [user, setUser] = useState(null);
+    const [isLoading, setIsLoading] = useState(true); // 👈
 
+    const location = useLocation();
+    const hideNavbarRoutes = ["/login", "/register"];
+    const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
+    const [cart, setCart] = React.useState([]);
+
+    useEffect(() => {
+        AuthService.getMe()
+            .then((res) => {
+                if (res.data.role === "admin") {
+                    setIsAdmin(true);
+                    setIsLoggedIn(true);
+                    setUser(res.data);
+                } else if (res.data.role === "user") {
+                    setIsAdmin(false);
+                    setIsLoggedIn(true);
+                    setUser(res.data);
+                }
+            })
+            .catch(err => {
+                console.log("Not authenticated", err);
+                setIsLoggedIn(false);
+                setIsAdmin(false);
+                setUser(null);
+            })
+            .finally(() => {
+                setIsLoading(false); // 👈 теперь можно отрисовывать
+            });
+    }, [isLoggedIn]);
+
+    if (isLoading) {
+        return <div style={{ color: "#fff", textAlign: "center", marginTop: "100px" }}>Загрузка...</div>;
+    }
+
+    return (
+        <CartContext.Provider value={{ cart, setCart }}>
+            <AuthContext.Provider value={{
+                isLoggedIn,
+                setIsLoggedIn,
+                isAdmin,
+                setIsAdmin,
+                user,
+                setUser,
+            }}>
+                {!shouldHideNavbar && <Navbar />}
+                <AppRouter />
+            </AuthContext.Provider>
+        </CartContext.Provider>
+    );
+}

@@ -11,37 +11,3 @@ h2 {
 }
 
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
-}
-
-.cardWrapper {
-    position: relative;
-}
-
-.deleteButton {
-    position: absolute;
-    top: 8px;
-    right: 40px;
-    width: 28px;
-    height: 28px;
-    background-color: #e74c3c;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-    z-index: 1;
-}
-
-.deleteButton:hover {
-    background-color: #c0392b;
-}
-
