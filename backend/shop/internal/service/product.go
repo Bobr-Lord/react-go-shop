@@ -31,3 +31,11 @@ func (s *Service) DeleteProduct(id string) error {
 	}
 	return nil
 }
+
+func (s *Service) GetAllProductsPrivate(idUser string) ([]models.Product, error) {
+	return s.r.GetAllProductsPrivate(idUser)
+}
+
+func (s *Service) DecrementProduct(idUser string, idProduct string) error {
+	return s.r.DecrementProduct(idUser, idProduct)
+}

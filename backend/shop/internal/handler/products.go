@@ -118,3 +118,62 @@ func (h *Handler) DeleteProduct(c *gin.Context) {
 	loger.Infof("response %v", HTTPResp)
 	c.JSON(200, HTTPResp)
 }
+
+func (h *Handler) GetAllProductsPrivate(c *gin.Context) {
+	requestID, ok := c.Get(middleware.RequestIdKey)
+	if !ok {
+		requestID = "unknown"
+	}
+	loger := logrus.WithFields(logrus.Fields{
+		"request_id": requestID,
+	})
+	loger.Info("Handle GetAllProductsPrivate")
+	idUser, ok := c.Get(middleware.IDKey)
+	if !ok {
+		loger.Warn("failed to get user id")
+		c.JSON(http.StatusInternalServerError, "failed to get user id")
+		return
+	}
+	res, err := h.svc.GetAllProductsPrivate(idUser.(string))
+	if err != nil {
+		loger.Errorf("failed to get products: %v", err)
+		httpErr := response.ParseHttpError(err)
+		c.JSON(httpErr.Code, httpErr.Error())
+		return
+	}
+	loger.Infof("response %v")
+	resp := models.GetAllProductsResponse{
+		Products: res,
+	}
+	c.JSON(200, resp)
+}
+
+func (h *Handler) DecrementProduct(c *gin.Context) {
+	requestID, ok := c.Get(middleware.RequestIdKey)
+	if !ok {
+		requestID = "unknown"
+	}
+	loger := logrus.WithFields(logrus.Fields{
+		"request_id": requestID,
+	})
+	loger.Info("Handle DecrementProduct")
+	idUser, ok := c.Get(middleware.IDKey)
+	if !ok {
+		loger.Warn("failed to get user id")
+		c.JSON(http.StatusInternalServerError, "failed to get user id")
+		return
+	}
+	idProduct := c.Param("id")
+	if idProduct == "" {
+		loger.Warn("invalid id")
+		c.JSON(http.StatusBadRequest, "invalid id")
+		return
+	}
+	if err := h.svc.DecrementProduct(idUser.(string), idProduct); err != nil {
+		loger.Errorf("failed to decrement product: %v", err)
+		errResp := response.ParseHttpError(err)
+		c.JSON(http.StatusInternalServerError, errResp)
+		return
+	}
+	c.Status(200)
+}
