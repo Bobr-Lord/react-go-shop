@@ -38,4 +38,9 @@ export default class ProductService {
             withCredentials: true
         });
     }
+    static async decrementProduct(id) {
+        return await axios.put(`http://localhost:8080/api/cart/item/${id}`, {}, {
+            withCredentials: true
+        });
+    }
 }
