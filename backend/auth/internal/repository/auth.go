@@ -37,3 +37,19 @@ func (r *Repository) Login(req *models.LoginRequest) (string, string, error) {
 
 	return "", "", errors.NewHTTPError(http.StatusUnauthorized, "wrong password")
 }
+
+func (r *Repository) GetMe(id string) (*models.GetMeResponse, error) {
+	query := fmt.Sprintf("SELECT id, first_name, last_name, email, role FROM %s WHERE id = $1", userTableName)
+	var user models.GetMeResponse
+	err := r.db.QueryRow(query, id).Scan(
+		&user.ID,
+		&user.FirstName,
+		&user.LastName,
+		&user.Email,
+		&user.Role,
+	)
+	if err != nil {
+		return nil, errors.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+	return &user, nil
+}

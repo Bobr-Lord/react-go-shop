@@ -37,3 +37,7 @@ func (s *Service) Login(req *models.LoginRequest) (string, error) {
 	}
 	return token, nil
 }
+
+func (s *Service) GetMe(id string) (*models.GetMeResponse, error) {
+	return s.repo.GetMe(id)
+}

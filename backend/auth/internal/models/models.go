@@ -5,7 +5,7 @@ type User struct {
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
 	Email     string `json:"email"`
-	Role      string `json:"role"`
+	Role      string `json:"role" db:"role"`
 	Password  string `json:"password"`
 }
 
@@ -26,4 +26,12 @@ type RegisterRequest struct {
 }
 type RegisterResponse struct {
 	ID string `json:"id"`
+}
+
+type GetMeResponse struct {
+	ID        string `json:"id"`
+	FirstName string `json:"first_name" db:"first_name"`
+	LastName  string `json:"last_name" db:"last_name"`
+	Email     string `json:"email"`
+	Role      string `json:"role"`
 }

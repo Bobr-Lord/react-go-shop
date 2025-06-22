@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/Bobr-Lord/react-go-shop/tree/main/backend/auth/internal/config"
 	"github.com/Bobr-Lord/react-go-shop/tree/main/backend/auth/internal/middleware"
 	"github.com/Bobr-Lord/react-go-shop/tree/main/backend/auth/internal/service"
 	"github.com/gin-contrib/cors"
@@ -10,31 +11,35 @@ import (
 
 type Handler struct {
 	svc *service.Service
+	cfg *config.Config
 }
 
-func NewHandler(svc *service.Service) *Handler {
+func NewHandler(svc *service.Service, cfg *config.Config) *Handler {
 	return &Handler{
 		svc: svc,
+		cfg: cfg,
 	}
 }
 
 func (h *Handler) InitRouter() *gin.Engine {
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.New()
+	r.Use(middleware.LoggerMiddleware())
+
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:3000", "http://localhost:8080", "http://192.168.1.69:3000", "http://192.168.1.69:8080"},
+		AllowOrigins:     []string{"http://localhost:3000"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
 	}))
-	r.Use(middleware.LoggerMiddleware())
 
 	api := r.Group("/api")
 	{
 		api.POST("/reg", h.Register)
 		api.POST("/login", h.Login)
+		api.GET("/me", middleware.AuthUserMiddleware(h.cfg.PathPublicKey), h.GetMe)
 	}
 
 	return r

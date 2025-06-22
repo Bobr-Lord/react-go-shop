@@ -32,7 +32,7 @@ func GenerateToken(id string, role string, privateKey *rsa.PrivateKey) (string, 
 	return ss, err
 }
 
-func ValidateJWT(tokenString string, pubKey *rsa.PublicKey) (*jwt.MapClaims, error) {
+func ValidateJWT(tokenString string, pubKey *rsa.PublicKey) (jwt.MapClaims, error) {
 	token, err := jwt.Parse(tokenString, func(t *jwt.Token) (interface{}, error) {
 		if _, ok := t.Method.(*jwt.SigningMethodRSA); !ok {
 			return nil, jwt.ErrSignatureInvalid
@@ -53,5 +53,5 @@ func ValidateJWT(tokenString string, pubKey *rsa.PublicKey) (*jwt.MapClaims, err
 		return nil, errors.New("invalid claims structure")
 	}
 
-	return &claims, nil
+	return claims, nil
 }
