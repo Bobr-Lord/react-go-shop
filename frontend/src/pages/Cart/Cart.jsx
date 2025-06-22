@@ -23,6 +23,7 @@ const Cart = () => {
             console.log(item.id);
             const res = await ProductService.deleteItemCart(item.id);
             console.log(res);
+            setCartItems(cartItems.filter((el) => el.id !== item.id));
         } catch (error) {
             console.error(error);
         }
@@ -38,12 +39,17 @@ const Cart = () => {
                     {cartItems.map(item => (
                         <div key={item.id} className={cl.item}>
                             <img src={item.image} alt={item.name} className={cl.image} />
-                            <div className={cl.info}>
-                                <h3>{item.name}</h3>
-                                <p>{item.price} ₽ × {item.quantity}</p>
-                                <MyButton onClick={() => RemoveItem(item)}>Удалить</MyButton>
+                            <div className={cl.content}>
+                                <div className={cl.info}>
+                                    <h3>{item.name}</h3>
+                                    <p>{item.price} ₽ × {item.quantity}</p>
+                                </div>
+                                <div className={cl.actions}>
+                                    <MyButton onClick={() => RemoveItem(item)}>Удалить</MyButton>
+                                </div>
                             </div>
                         </div>
+
                     ))}
                     <div className={cl.total}>Итого: {total.toLocaleString()} ₽</div>
                 </div>

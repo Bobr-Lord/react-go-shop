@@ -11,6 +11,11 @@ export default class ProductService {
             withCredentials: true
         });
     }
+    static async getProductsPrivate() {
+        return await axios.get('http://localhost:8080/api/products/cart', {
+            withCredentials: true
+        });
+    }
     static async deleteProduct(id) {
         return await axios.delete(`http://localhost:8080/api/product/${id}`, {
             withCredentials: true

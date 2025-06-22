@@ -1,12 +1,21 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import Loader from "../UI/Loader/Loader";
 import MenuItem from "../UI/MenuItem/MenuItem";
 import {useFetching} from "../../hooks/useFetching";
 import ProductService from "../../api/ProductService";
+import {AuthContext} from "../../context";
+import axios from "axios";
 
 const MenuItemLoader = ({products, setProducts}) => {
+    const {isLoggedIn} = useContext(AuthContext);
     const [fetchProduct, isLoading, ProductError] = useFetching(async () => {
-        const FetchProducts = await ProductService.getProducts();
+        let FetchProducts;
+        if (isLoggedIn) {
+            FetchProducts = await ProductService.getProductsPrivate();
+            console.log(FetchProducts);
+        } else{
+            FetchProducts = await ProductService.getProducts();
+        }
         setProducts(FetchProducts.data.products);
         console.log(FetchProducts);
     })

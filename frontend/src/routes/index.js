@@ -8,11 +8,13 @@ export const privateAdminRoute = [
     {path: "/", component: <Home/>, exact: true},
     {path: "/admin", component: <Admin/>, exact: true},
     {path: "/cart", component: <Cart/>, exact: true},
+    {path: "/login", component: <Login/>, exact: true},
 ]
 
 export const privateUserRoute = [
     {path: "/", component: <Home/>, exact: true},
     {path: "/cart", component: <Cart/>, exact: true},
+    {path: "/login", component: <Login/>, exact: true},
 ]
 
 export const publicRoute = [

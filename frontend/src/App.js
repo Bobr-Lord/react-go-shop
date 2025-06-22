@@ -3,8 +3,9 @@ import './styles/App.css';
 import Navbar from "./componends/UI/Navbar/Navbar";
 import { useLocation } from "react-router-dom";
 import AppRouter from "./componends/AppRouter";
-import { AuthContext } from "./context";
+import { AuthContext, CartContext } from "./context";
 import AuthService from "./api/AuthService";
+import ProductService from "./api/ProductService";
 
 export default function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -15,6 +16,7 @@ export default function App() {
     const location = useLocation();
     const hideNavbarRoutes = ["/login", "/register"];
     const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
+    const [cart, setCart] = React.useState([]);
 
     useEffect(() => {
         AuthService.getMe()
@@ -38,23 +40,25 @@ export default function App() {
             .finally(() => {
                 setIsLoading(false); // 👈 теперь можно отрисовывать
             });
-    }, []);
+    }, [isLoggedIn]);
 
     if (isLoading) {
         return <div style={{ color: "#fff", textAlign: "center", marginTop: "100px" }}>Загрузка...</div>;
     }
 
     return (
-        <AuthContext.Provider value={{
-            isLoggedIn,
-            setIsLoggedIn,
-            isAdmin,
-            setIsAdmin,
-            user,
-            setUser,
-        }}>
-            {!shouldHideNavbar && <Navbar />}
-            <AppRouter />
-        </AuthContext.Provider>
+        <CartContext.Provider value={{ cart, setCart }}>
+            <AuthContext.Provider value={{
+                isLoggedIn,
+                setIsLoggedIn,
+                isAdmin,
+                setIsAdmin,
+                user,
+                setUser,
+            }}>
+                {!shouldHideNavbar && <Navbar />}
+                <AppRouter />
+            </AuthContext.Provider>
+        </CartContext.Provider>
     );
 }

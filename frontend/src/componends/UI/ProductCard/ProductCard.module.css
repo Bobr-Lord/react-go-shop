@@ -104,3 +104,20 @@
     background-color: #c0392b;
 }
 
+.counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.counter button {
+    background-color: #1cc29f;
+    border: none;
+    border-radius: 8px;
+    padding: 5px 12px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 18px;
+}

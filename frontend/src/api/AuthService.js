@@ -13,8 +13,8 @@ export default class AuthService {
         return await axios.post("http://localhost:8081/api/reg", {
             email: email,
             password: password,
-            firstname: firstname,
-            lastname: lastname,
+            first_name: firstname,
+            last_name: lastname,
         }, {
             withCredentials: true
         })

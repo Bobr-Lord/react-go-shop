@@ -32,10 +32,7 @@ const MenuItem = ({products, setProducts}) => {
                     {products.map(product => (
                         <div key={product.id} className={cl.cardWrapper}>
                             <ProductCard
-                                title={product.name}
-                                price={product.price}
-                                description={product.description}
-                                image={product.image}
+                                product={product}
                                 onDelete={() => handleDelete(product.id)}
                             />
                         </div>
