@@ -20,6 +20,7 @@ const AddItemForm = ({form, setForm, products, setProducts}) => {
             const res = await ProductService.addProduct(newProduct);
             console.log('запрос на добавление товара:', res);
             newProduct.id = res.data.id
+            newProduct.quantity = 0
             console.log(newProduct);
             if (products === null) {
                 setProducts([newProduct]);

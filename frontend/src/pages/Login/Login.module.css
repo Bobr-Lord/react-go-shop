@@ -82,3 +82,16 @@
 .registerLink:hover {
     color: #19a789;
 }
+
+.error {
+    color: #ff6b6b;
+    font-size: 14px;
+    margin-top: -5px;
+    text-align: left;
+    padding-left: 4px;
+}
+
+.inputError {
+    border: 1px solid #ff6b6b !important;
+}
+

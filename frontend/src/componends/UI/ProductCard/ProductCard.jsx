@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import cl from './ProductCard.module.css';
 import { useLocation } from "react-router-dom";
 import ProductService from "../../../api/ProductService";
@@ -93,7 +93,7 @@ const ProductCard = ({ idProduct, products, setProducts, onDelete }) => {
                 )}
             </div>
             <div className={cl.content}>
-                <h3 className={cl.title}>{itemInCart.title}</h3>
+                <h3 className={cl.title}>{itemInCart.name}</h3>
                 <p className={cl.price}>
                     {itemInCart.price.toLocaleString()} <span>₽</span>
                 </p>

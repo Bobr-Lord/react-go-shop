@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
-import {privateAdminRoute, privateRoute, privateUserRoute, publicRoute} from "../routes";
+import {privateAdminRoute, privateUserRoute, publicRoute} from "../routes";
 import {AuthContext} from "../context";
 
 const AppRouter = () => {

@@ -69,7 +69,7 @@
 
 .imageWrapper {
     position: relative;
-    aspect-ratio: 4 / 3; /* или 1 / 1, или 16 / 9, как тебе нужно */
+    aspect-ratio: 4 / 4; /* или 1 / 1, или 16 / 9, как тебе нужно */
     overflow: hidden;
 }
 

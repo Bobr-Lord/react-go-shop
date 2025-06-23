@@ -5,7 +5,6 @@ import { useLocation } from "react-router-dom";
 import AppRouter from "./componends/AppRouter";
 import { AuthContext, CartContext } from "./context";
 import AuthService from "./api/AuthService";
-import ProductService from "./api/ProductService";
 
 export default function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);

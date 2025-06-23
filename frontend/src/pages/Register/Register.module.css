@@ -64,3 +64,14 @@
     min-height: calc(100vh - 56px);
     color: #ecf0f1;
 }
+.error {
+    color: #ff6b6b;
+    font-size: 12px;
+    margin-top: -10px;
+    text-align: left;
+    margin-left: 5px;
+}
+
+.inputError {
+    border: 1px solid #ff6b6b !important;
+}

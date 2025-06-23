@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
 import cl from './Home.module.css';
-import ProductCard from "../../componends/UI/ProductCard/ProductCard";
-import MenuItem from "../../componends/UI/MenuItem/MenuItem";
 import MenuItemLoader from "../../componends/MenuItemLoader/MenuItemLoader";
 
 const Home = () => {

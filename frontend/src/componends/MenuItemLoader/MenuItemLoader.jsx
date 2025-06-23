@@ -4,7 +4,6 @@ import MenuItem from "../UI/MenuItem/MenuItem";
 import {useFetching} from "../../hooks/useFetching";
 import ProductService from "../../api/ProductService";
 import {AuthContext} from "../../context";
-import axios from "axios";
 
 const MenuItemLoader = ({products, setProducts}) => {
     const {isLoggedIn} = useContext(AuthContext);
