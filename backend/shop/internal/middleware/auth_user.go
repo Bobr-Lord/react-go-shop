@@ -15,7 +15,7 @@ func AuthUserMiddleware(publicKeyPath string) gin.HandlerFunc {
 		loger := logrus.WithFields(logrus.Fields{
 			"request_id": requestID,
 		})
-		loger.Info("auth middleware")
+		loger.Info("auth User middleware")
 		tokenStr, err := c.Cookie("access_token")
 		if err != nil {
 			loger.Errorf("get cookie failed: %v", err)

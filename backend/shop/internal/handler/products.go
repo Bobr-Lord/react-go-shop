@@ -75,7 +75,7 @@ func (h *Handler) GetAllProducts(c *gin.Context) {
 		return
 	}
 	resp := models.GetAllProductsResponse{
-		Products: products,
+		Products: reverse(products),
 	}
 	loger.Info("get products success")
 	c.JSON(200, resp)
@@ -143,7 +143,7 @@ func (h *Handler) GetAllProductsPrivate(c *gin.Context) {
 	}
 	loger.Infof("response %v")
 	resp := models.GetAllProductsResponse{
-		Products: res,
+		Products: reverse(res),
 	}
 	c.JSON(200, resp)
 }
@@ -176,4 +176,11 @@ func (h *Handler) DecrementProduct(c *gin.Context) {
 		return
 	}
 	c.Status(200)
+}
+
+func reverse[T any](s []T) []T {
+	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
+		s[i], s[j] = s[j], s[i]
+	}
+	return s
 }
