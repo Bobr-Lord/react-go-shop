@@ -7,6 +7,8 @@ type User struct {
 	Email     string `json:"email"`
 	Role      string `json:"role" db:"role"`
 	Password  string `json:"password"`
+	Status    string `json:"status"`
+	Token     string `json:"token"`
 }
 
 type LoginRequest struct {

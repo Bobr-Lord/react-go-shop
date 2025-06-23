@@ -40,6 +40,7 @@ func (h *Handler) InitRouter() *gin.Engine {
 		api.POST("/reg", h.Register)
 		api.POST("/login", h.Login)
 		api.GET("/me", middleware.AuthUserMiddleware(h.cfg.PathPublicKey), h.GetMe)
+		api.GET("/verify", h.VerifyEmail)
 	}
 
 	return r
