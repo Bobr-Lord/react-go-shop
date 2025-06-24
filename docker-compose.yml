@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:13
     container_name: shop-postgres
     environment:
       POSTGRES_USER: user
@@ -11,18 +11,26 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - pgdata:/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
     networks:
       - app
 
   auth-shop:
-    build: ./backend-auth
+    image: yourdockeruser/my-shop-auth:latest
     container_name: auth-shop
     ports:
       - "8081:8081"
     environment:
       - SERVER_HOST=0.0.0.0
       - SERVER_PORT=8081
-      - APP_ENV=local
+      - APP_ENV=production
       - PATH_PRIVATE_KEY=/app/keys/private.pem
       - PATH_PUBLIC_KEY=/app/keys/public.pem
       - POSTGRES_USER=user
@@ -31,22 +39,30 @@ services:
       - POSTGRES_PORT=5432
       - POSTGRES_DB_NAME=postgres
       - SENDER_HOST=auth-shop:8081
+      - EMAIL_API_PASS=labk ikbx cvts eajv
     volumes:
       - ./backend/auth/keys:/app/keys
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
     networks:
       - app
 
   shop:
-    build: ./backend-shop
+    image: yourdockeruser/my-shop-backend:latest
     container_name: shop
     ports:
       - "8080:8080"
     environment:
       - SERVER_HOST=0.0.0.0
       - SERVER_PORT=8080
-      - APP_ENV=local
+      - APP_ENV=production
       - PATH_PUBLIC_KEY=/app/keys/public.pem
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=secret
@@ -56,24 +72,55 @@ services:
     volumes:
       - ./backend/shop/keys:/app/keys
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
     networks:
       - app
 
   frontend:
-    build: ./frontend
+    image: yourdockeruser/my-shop-frontend:latest
+    container_name: frontend
     volumes:
-      - frontend-build:/dist
+      - frontend-build:/usr/share/nginx/html
+    restart: unless-stopped
+    networks:
+      - app
 
   nginx:
     image: nginx:stable
+    container_name: nginx
     ports:
-      - "8088:80"
+      - "80:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       - frontend-build:/usr/share/nginx/html
     depends_on:
       - frontend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - app
+
+  migrator:
+    image: migrate/migrate
+    container_name: migrator
+    command: -path=/migrations -database postgres://user:secret@postgres:5432/postgres?sslmode=disable up
+    volumes:
+      - ./migrations:/migrations
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
     networks:
       - app
 

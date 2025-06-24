@@ -36,6 +36,9 @@ func (h *Handler) InitRouter() *gin.Engine {
 		MaxAge:           12 * time.Hour,
 	}))
 	r.Use(middleware.LoggerMiddleware())
+	r.GET("/health", func(c *gin.Context) {
+		c.JSON(200, gin.H{"status": "ok"})
+	})
 
 	api := r.Group("/api")
 	{

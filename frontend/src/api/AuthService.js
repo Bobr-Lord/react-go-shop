@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default class AuthService {
     static async login(email, password) {
-        return await axios.post("http://localhost:8081/api/login", {
+        return await axios.post("/api/auth/login", {
             email: email,
             password: password,
         }, {
@@ -10,7 +10,7 @@ export default class AuthService {
         })
     }
     static async register(email, password, firstname, lastname) {
-        return await axios.post("http://localhost:8081/api/reg", {
+        return await axios.post("/api/auth/reg", {
             email: email,
             password: password,
             first_name: firstname,
@@ -20,7 +20,7 @@ export default class AuthService {
         })
     }
     static async getMe() {
-        return await axios.get(`http://localhost:8081/api/me`, {
+        return await axios.get(`/api/auth/me`, {
             withCredentials: true
         });
     }

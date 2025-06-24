@@ -1,6 +1,7 @@
 package service
 
 import (
+	"crypto/tls"
 	"github.com/Bobr-Lord/react-go-shop/tree/main/backend/auth/internal/errors"
 	"github.com/Bobr-Lord/react-go-shop/tree/main/backend/auth/internal/hash"
 	"github.com/Bobr-Lord/react-go-shop/tree/main/backend/auth/internal/jwt"
@@ -9,6 +10,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"gopkg.in/gomail.v2"
 	"net/http"
+	"os"
 )
 
 func (s *Service) Register(req *models.RegisterRequest) (string, error) {
@@ -64,8 +66,9 @@ func SendEmailSMTP(toEmail, subject, body string) error {
 	m.SetHeader("To", toEmail)
 	m.SetHeader("Subject", subject)
 	m.SetBody("text/html", body)
-
-	d := gomail.NewDialer("smtp.gmail.com", 587, "react.go.shop@gmail.com", "labk ikbx cvts eajv")
+	pass := os.Getenv("EMAIL_API_PASS")
+	d := gomail.NewDialer("smtp.gmail.com", 587, "react.go.shop@gmail.com", pass)
+	d.TLSConfig = &tls.Config{InsecureSkipVerify: true} // ⚠️ для разработки
 
 	return d.DialAndSend(m)
 }
