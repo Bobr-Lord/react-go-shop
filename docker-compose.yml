@@ -23,7 +23,8 @@ services:
       - app
 
   auth-shop:
-    image: yourdockeruser/my-shop-auth:latest
+    build:
+      context: ./backend/auth
     container_name: auth-shop
 
     ports:
@@ -42,7 +43,7 @@ services:
       - SENDER_HOST=auth-shop:8081
       - EMAIL_API_PASS=labk ikbx cvts eajv
     volumes:
-      - /opt/auth-keys:/app/keys
+      - /opt/keys:/app/keys
     depends_on:
       postgres:
         condition: service_healthy
@@ -56,7 +57,8 @@ services:
       - app
 
   shop:
-    image: yourdockeruser/my-shop-backend:latest
+    build:
+      context: ./backend/shop
     container_name: shop
     ports:
       - "8080:8080"
@@ -71,7 +73,7 @@ services:
       - POSTGRES_PORT=5432
       - POSTGRES_DB_NAME=postgres
     volumes:
-      - /opt/auth-keys:/app/keys
+      - /opt/keys:/app/keys
     depends_on:
       postgres:
         condition: service_healthy
@@ -85,7 +87,8 @@ services:
       - app
 
   frontend:
-    image: yourdockeruser/my-shop-frontend:latest
+    build:
+      context: ./frontend
     container_name: frontend
     volumes:
       - frontend-build:/usr/share/nginx/html
