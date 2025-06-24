@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import cl from './Home.module.css';
-import ProductCard from "../../componends/UI/ProductCard/ProductCard";
+import MenuItemLoader from "../../componends/MenuItemLoader/MenuItemLoader";
 
 const Home = () => {
+    const [products, setProducts] = useState([]);
     return (
         <div className={cl.main}>
             <h1 className={cl.title}>React-Go Shop</h1>
@@ -10,7 +11,8 @@ const Home = () => {
                 Добро пожаловать в React-Go Shop — современный онлайн-магазин техники, аксессуаров и товаров для дома.
                 Удобный интерфейс, быстрая доставка и качественный сервис.
             </p>
-            <ProductCard/>
+            <MenuItemLoader products={products} setProducts={setProducts}/>
+
         </div>
     );
 };

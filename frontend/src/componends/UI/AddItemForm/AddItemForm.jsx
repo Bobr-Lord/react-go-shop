@@ -2,22 +2,47 @@ import React from 'react';
 import cl from "./AddItemForm.module.css";
 import MyInput from "../MyInput/MyInput";
 import MyButton from "../MyButton/MyButton";
+import ProductService from "../../../api/ProductService";
 
 const AddItemForm = ({form, setForm, products, setProducts}) => {
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
-    const handleAddProduct = () => {
+    const handleAddProduct = async () => {
         const newProduct = {
-            id: Date.now(),
-            title: form.title,
+            name: form.title,
             price: Number(form.price),
             description: form.description,
-            image: form.image
+            image: form.image,
+            category: "product",
         };
-        setProducts([newProduct, ...products]);
-        setForm({ title: '', price: '', description: '', image: '' });
+        try {
+            const res = await ProductService.addProduct(newProduct);
+            console.log('запрос на добавление товара:', res);
+            newProduct.id = res.data.id
+            newProduct.quantity = 0
+            console.log(newProduct);
+            if (products === null) {
+                setProducts([newProduct]);
+            } else {
+                setProducts([newProduct, ...products]);
+            }
+            setForm({ title: '', price: '', description: '', image: '' });
+        } catch (e) {
+            if (e.status === 401) {
+                alert("only admin 🙉");
+            }
+            if (e.status === 500) {
+                alert("something went wrong");
+            }
+            console.error('Ошибка при добавлении товара:', e);
+        }
     };
+
+
+
+
+
     return (
         <div className={cl.form}>
             <MyInput

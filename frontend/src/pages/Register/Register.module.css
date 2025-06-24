@@ -1,0 +1,77 @@
+
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #1e1e1e;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input {
+    background-color: #2a2a2a;
+    color: #f1f1f1;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+}
+
+.input::placeholder {
+    color: #999;
+}
+
+.input:focus {
+    background-color: #333;
+    outline: none;
+}
+
+.button {
+    background-color: #1cc29f;
+    color: white;
+    padding: 12px 16px;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.button:hover {
+    background-color: #19a789;
+}
+
+.title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.main {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #121417; /* почти чёрный */
+    min-height: calc(100vh - 56px);
+    color: #ecf0f1;
+}
+.error {
+    color: #ff6b6b;
+    font-size: 12px;
+    margin-top: -10px;
+    text-align: left;
+    margin-left: 5px;
+}
+
+.inputError {
+    border: 1px solid #ff6b6b !important;
+}
