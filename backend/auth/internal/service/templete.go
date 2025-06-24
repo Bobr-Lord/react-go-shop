@@ -16,7 +16,7 @@ func GetTemplate(token string) string {
         <h2 style="color: #333;">Добро пожаловать в React-Go Shop!</h2>
         <p style="color: #555;">Благодарим за регистрацию. Чтобы завершить процесс, подтвердите адрес электронной почты.</p>
         <p>
-            <a href="http://%s/api/verify?token=%s" style="display: inline-block; background-color: #1cc29f; color: #fff; padding: 12px 20px; text-decoration: none; border-radius: 6px;">
+            <a href="http://%s/api/auth/verify?token=%s" style="display: inline-block; background-color: #1cc29f; color: #fff; padding: 12px 20px; text-decoration: none; border-radius: 6px;">
                 Подтвердить email
             </a>
         </p>
