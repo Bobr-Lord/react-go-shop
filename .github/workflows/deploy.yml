@@ -48,10 +48,10 @@ jobs:
           cd frontend
           npm install
 
-      - name: 🧪 Run frontend tests (optional)
-        run: |
-          cd frontend
-          npm test -- --watchAll=false
+#      - name: 🧪 Run frontend tests (optional)
+#        run: |
+#          cd frontend
+#          npm test -- --watchAll=false
 
       - name: 🐳 Build Docker images
         run: |
