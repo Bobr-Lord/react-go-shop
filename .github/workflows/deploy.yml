@@ -53,22 +53,20 @@ jobs:
 #          cd frontend
 #          npm test -- --watchAll=false
 
-      - name: 🐳 Build Docker images
-        run: |
-          docker build -t my-shop-frontend ./frontend
-          docker build -t my-shop-backend ./backend/shop
-          docker build -t my-shop-auth ./backend/auth
+#      - name: 🐳 Build Docker images
+#        run: |
+#          docker build -t my-shop-frontend ./frontend
+#          docker build -t my-shop-backend ./backend/shop
+#          docker build -t my-shop-auth ./backend/auth
 
-#      # 🚀 Deploy на VPS по SSH
-#      - name: 🚀 Deploy to server
-#        uses: appleboy/ssh-action@v0.1.10
-#        with:
-#          host: ${{ secrets.SSH_HOST }}
-#          username: ${{ secrets.SSH_USER }}
-#          key: ${{ secrets.SSH_PRIVATE_KEY }}
-#          script: |
-#            cd /home/user/myproject
-#            git pull origin main
-#            docker-compose down
-#            docker-compose pull
-#            docker-compose up -d --build
+      # 🚀 Deploy на VPS по SSH
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /app
+            git pull
+            docker-compose up -d --build
