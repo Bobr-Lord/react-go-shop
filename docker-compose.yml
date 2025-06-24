@@ -36,7 +36,7 @@ services:
       - PATH_PRIVATE_KEY=/app/keys/private.pem
       - PATH_PUBLIC_KEY=/app/keys/public.pem
       - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=secret
+      - POSTGRES_PASSWORD=secretapp
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
       - POSTGRES_DB_NAME=postgres
@@ -66,7 +66,7 @@ services:
       - SERVER_HOST=0.0.0.0
       - SERVER_PORT=8080
       - APP_ENV=production
-      - PATH_PUBLIC_KEY=/app/keys/public.pem
+      - PATH_PUBLIC_KEY=/opt/keys/public.pem
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=secret
       - POSTGRES_HOST=postgres

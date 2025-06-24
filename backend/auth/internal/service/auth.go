@@ -2,6 +2,7 @@ package service
 
 import (
 	"crypto/tls"
+	"fmt"
 	"github.com/Bobr-Lord/react-go-shop/tree/main/backend/auth/internal/errors"
 	"github.com/Bobr-Lord/react-go-shop/tree/main/backend/auth/internal/hash"
 	"github.com/Bobr-Lord/react-go-shop/tree/main/backend/auth/internal/jwt"
@@ -45,6 +46,7 @@ func (s *Service) Login(req *models.LoginRequest) (string, error) {
 	if err != nil {
 		return "", errors.NewHTTPError(http.StatusInternalServerError, "internal server error")
 	}
+	fmt.Println("PrivateKey", privetKey)
 	token, err := jwt.GenerateToken(id, role, privetKey)
 	if err != nil {
 		return "", errors.NewHTTPError(http.StatusInternalServerError, "internal server error")
