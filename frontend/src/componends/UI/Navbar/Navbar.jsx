@@ -10,8 +10,9 @@ const Navbar = () => {
         <div className={cl.navbar}>
             <div className={cl.leftSection}>
                 <Link to={"/"} className={cl.navbarItem}>Каталог</Link>
-                <Link to={"/cart"} className={cl.navbarItem}>Корзина</Link>
-                <span className={cl.navbarItem}>Аккаунт</span>
+                {isLoggedIn &&
+                    <Link to={"/cart"} className={cl.navbarItem}>Корзина</Link>
+                }
                 {isAdmin && (
                     <Link to={"/admin"} className={cl.navbarItem}>Админ-панель</Link>
                 )}
