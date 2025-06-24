@@ -51,17 +51,12 @@ func (h *Handler) InitRouter() *gin.Engine {
 			cart.PUT("/item/:id", h.DecrementProduct)
 		}
 	}
-	r.Static("/static", "./frontend/build/static")
-	r.StaticFile("/favicon.ico", "./frontend/build/favicon.ico")
-	r.GET("/", func(c *gin.Context) {
-		c.File("./frontend/build/index.html")
-	})
-	r.GET("/admin", func(c *gin.Context) {
-		c.File("./frontend/build/index.html")
-	})
-	r.NoRoute(func(c *gin.Context) {
-		c.File("./frontend/build/index.html")
-	})
-
+	//r.Static("/static", "./frontend/build/static")
+	//r.StaticFile("/favicon.ico", "./frontend/build/favicon.ico")
+	//r.StaticFile("/logo192.png", "./frontend/build/logo192.png") // по желанию
+	//
+	//r.NoRoute(func(c *gin.Context) {
+	//	c.File("./frontend/build/index.html")
+	//})
 	return r
 }

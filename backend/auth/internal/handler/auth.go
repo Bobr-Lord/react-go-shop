@@ -158,6 +158,18 @@ func (h *Handler) VerifyEmail(c *gin.Context) {
 	`))
 }
 
+//func SendConfirmationEmail(c *gin.Context) {
+//	requestID, ok := c.Get(middleware.RequestIdKey)
+//	if !ok {
+//		requestID = "unknown"
+//	}
+//	loger := logrus.WithFields(logrus.Fields{
+//		"request_id": requestID,
+//	})
+//	loger.Info("Handle SendConfirmationEmail")
+//
+//}
+
 func IsValidEmail(email string) bool {
 	_, err := mail.ParseAddress(email)
 	return err == nil

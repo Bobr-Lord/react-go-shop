@@ -68,3 +68,8 @@ func (r *Repository) VerifyEmail(token string) error {
 	}
 	return nil
 }
+
+//
+//func (r *Repository) GetToken() (string, error) {
+//
+//}
