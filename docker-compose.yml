@@ -52,7 +52,7 @@ services:
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
       - POSTGRES_DB_NAME=postgres
-      - SENDER_HOST=auth-shop:8081
+      - SENDER_HOST=178.130.58.164
       - EMAIL_API_PASS=labk ikbx cvts eajv
     volumes:
       - /opt/keys:/app/keys
