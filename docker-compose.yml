@@ -25,6 +25,7 @@ services:
   auth-shop:
     image: yourdockeruser/my-shop-auth:latest
     container_name: auth-shop
+
     ports:
       - "8081:8081"
     environment:
@@ -41,7 +42,7 @@ services:
       - SENDER_HOST=auth-shop:8081
       - EMAIL_API_PASS=labk ikbx cvts eajv
     volumes:
-      - ./backend/auth/keys:/app/keys
+      - /opt/auth-keys:/app/keys
     depends_on:
       postgres:
         condition: service_healthy
@@ -70,7 +71,7 @@ services:
       - POSTGRES_PORT=5432
       - POSTGRES_DB_NAME=postgres
     volumes:
-      - ./backend/shop/keys:/app/keys
+      - /opt/auth-keys:/app/keys
     depends_on:
       postgres:
         condition: service_healthy

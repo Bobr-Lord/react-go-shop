@@ -16,7 +16,6 @@ RUN useradd -m appuser
 WORKDIR /app
 
 COPY --from=builder /app/main /app/main
-COPY keys /app/keys
 RUN chown -R appuser:appuser /app
 
 USER appuser
