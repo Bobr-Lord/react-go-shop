@@ -26,7 +26,9 @@ func (h *Handler) InitRouter() *gin.Engine {
 	r := gin.New()
 
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:3000", "http://192.168.1.69:3000"},
+		AllowOriginFunc: func(origin string) bool {
+			return true
+		},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
@@ -37,18 +39,21 @@ func (h *Handler) InitRouter() *gin.Engine {
 
 	api := r.Group("/api")
 	{
-		api.POST("/product", middleware.AuthAdminMiddleware(h.cfg.PathPublicKey), h.CreateProduct)
-		api.GET("/products/cart", middleware.AuthUserMiddleware(h.cfg.PathPublicKey), h.GetAllProductsPrivate)
-		api.GET("/products", h.GetAllProducts)
-		api.DELETE("/product/:id", middleware.AuthAdminMiddleware(h.cfg.PathPublicKey), h.DeleteProduct)
-
-		cart := api.Group("/cart")
-		cart.Use(middleware.AuthUserMiddleware(h.cfg.PathPublicKey))
+		shop := api.Group("/shop")
 		{
-			cart.GET("/item", h.GetCartItems)
-			cart.POST("/item", h.AddCartItem)
-			cart.DELETE("/item/:id_item", h.DeleteCartItem)
-			cart.PUT("/item/:id", h.DecrementProduct)
+			shop.POST("/product", middleware.AuthAdminMiddleware(h.cfg.PathPublicKey), h.CreateProduct)
+			shop.GET("/products/cart", middleware.AuthUserMiddleware(h.cfg.PathPublicKey), h.GetAllProductsPrivate)
+			shop.GET("/products", h.GetAllProducts)
+			shop.DELETE("/product/:id", middleware.AuthAdminMiddleware(h.cfg.PathPublicKey), h.DeleteProduct)
+
+			cart := shop.Group("/cart")
+			cart.Use(middleware.AuthUserMiddleware(h.cfg.PathPublicKey))
+			{
+				cart.GET("/item", h.GetCartItems)
+				cart.POST("/item", h.AddCartItem)
+				cart.DELETE("/item/:id_item", h.DeleteCartItem)
+				cart.PUT("/item/:id", h.DecrementProduct)
+			}
 		}
 	}
 	//r.Static("/static", "./frontend/build/static")

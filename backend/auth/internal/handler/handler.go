@@ -26,7 +26,9 @@ func (h *Handler) InitRouter() *gin.Engine {
 	r := gin.New()
 
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:3000", "http://192.168.1.69:3000"},
+		AllowOriginFunc: func(origin string) bool {
+			return true
+		},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
@@ -37,10 +39,13 @@ func (h *Handler) InitRouter() *gin.Engine {
 
 	api := r.Group("/api")
 	{
-		api.POST("/reg", h.Register)
-		api.POST("/login", h.Login)
-		api.GET("/me", middleware.AuthUserMiddleware(h.cfg.PathPublicKey), h.GetMe)
-		api.GET("/verify", h.VerifyEmail)
+		auth := api.Group("/auth")
+		{
+			auth.POST("/reg", h.Register)
+			auth.POST("/login", h.Login)
+			auth.GET("/me", middleware.AuthUserMiddleware(h.cfg.PathPublicKey), h.GetMe)
+			auth.GET("/verify", h.VerifyEmail)
+		}
 	}
 
 	return r

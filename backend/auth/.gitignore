@@ -1,4 +1,5 @@
 .idea
 .env
-private.pem
-public.pem
+keys/private.pem
+keys/public.pem
+/keys

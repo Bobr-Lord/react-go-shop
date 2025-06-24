@@ -1,4 +1,4 @@
 .idea
 .env
 frontend
-public.pem
+keys/public.pem
