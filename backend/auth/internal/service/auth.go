@@ -44,12 +44,12 @@ func (s *Service) Login(req *models.LoginRequest) (string, error) {
 
 	privetKey, err := jwt.LoadRSAPrivateKeyPKCS8(s.cfg.PathPrivateKey)
 	if err != nil {
-		return "", errors.NewHTTPError(http.StatusInternalServerError, "internal server error")
+		return "", errors.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 	fmt.Println("PrivateKey", privetKey)
 	token, err := jwt.GenerateToken(id, role, privetKey)
 	if err != nil {
-		return "", errors.NewHTTPError(http.StatusInternalServerError, "internal server error")
+		return "", errors.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 	return token, nil
 }
