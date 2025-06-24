@@ -9,7 +9,7 @@ import (
 )
 
 func (r *Repository) Register(req *models.RegisterRequest, token string) (string, error) {
-	query := fmt.Sprintf("INSERT INTO %s (first_name, last_name, email, password, token, status) VALUES ($1, $2, $3, $4, $5) RETURNING id", userTableName)
+	query := fmt.Sprintf("INSERT INTO %s (first_name, last_name, email, password, token) VALUES ($1, $2, $3, $4, $5) RETURNING id", userTableName)
 	var id string
 	err := r.db.QueryRow(query, req.FirstName, req.LastName, req.Email, req.Password, token).Scan(&id)
 	if err != nil {
