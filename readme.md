@@ -1,4 +1,4 @@
-# React Go Shop
+<h1 align="center">React Go Shop</h1>
 
 <p align="center">
   <img alt="Go" src="https://img.shields.io/badge/Backend-Go-00ADD8?logo=go&logoColor=white" />
@@ -12,7 +12,6 @@
 
 Интернет-магазин с фронтендом на React и бэкендом на Go. Проект демонстрирует архитектуру с двумя независимыми Go-сервисами (например, `auth` и `shop`), и фронтендом, взаимодействующим с ними через REST API.
 
----
 
 ---
 
