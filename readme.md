@@ -1,4 +1,17 @@
 # React Go Shop
+<p align="center">
+  <img src="./img/img.png" alt="preview" />
+</p>
+
+<p align="center">
+  <img alt="Go" src="https://img.shields.io/badge/Backend-Go-00ADD8?logo=go&logoColor=white" />
+  <img alt="React" src="https://img.shields.io/badge/Frontend-React-61DAFB?logo=react&logoColor=white" />
+  <img alt="PostgreSQL" src="https://img.shields.io/badge/Database-PostgreSQL-336791?logo=postgresql&logoColor=white" />
+  <img alt="Docker" src="https://img.shields.io/badge/Container-Docker-2496ED?logo=docker&logoColor=white" />
+  <img alt="JWT" src="https://img.shields.io/badge/Auth-JWT-orange?logo=jsonwebtokens&logoColor=white" />
+  <img alt="REST API" src="https://img.shields.io/badge/API-REST-blue?logo=api&logoColor=white" />
+</p>
+
 
 Интернет-магазин с фронтендом на React и бэкендом на Go. Проект демонстрирует архитектуру с двумя независимыми Go-сервисами (например, `auth` и `shop`), и фронтендом, взаимодействующим с ними через REST API.
 
@@ -36,7 +49,7 @@
    ```
 
 4. Приложение будет доступно:
-    - Фронтенд: [http://localhost:80](http://localhost:80)
+   - Фронтенд: [http://localhost:80](http://localhost:80)
 
 ---
 
