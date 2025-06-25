@@ -52,10 +52,10 @@ services:
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
       - POSTGRES_DB_NAME=postgres
-      - SENDER_HOST=178.130.58.164
-      - EMAIL_API_PASS=labk ikbx cvts eajv
+      - SENDER_HOST=localhost
+      - EMAIL_API_PASS=labd igbx nvts rtjv
     volumes:
-      - /opt/keys:/app/keys
+      - ./keys:/app/keys
     depends_on:
       postgres:
         condition: service_healthy
@@ -85,7 +85,7 @@ services:
       - POSTGRES_PORT=5432
       - POSTGRES_DB_NAME=postgres
     volumes:
-      - /opt/keys:/app/keys
+      - ./keys:/app/keys
     depends_on:
       postgres:
         condition: service_healthy

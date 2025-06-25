@@ -59,14 +59,13 @@ jobs:
 #          docker build -t my-shop-backend ./backend/shop
 #          docker build -t my-shop-auth ./backend/auth
 
-      # 🚀 Deploy на VPS по SSH
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: root
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd ../react-go-shop
-            git pull
-            docker compose up -d --build
+#      - name: Deploy via SSH
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.HOST }}
+#          username: root
+#          key: ${{ secrets.SSH_PRIVATE_KEY }}
+#          script: |
+#            cd ../react-go-shop
+#            git pull
+#            docker compose up -d --build
