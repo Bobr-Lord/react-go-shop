@@ -1,7 +1,4 @@
 # React Go Shop
-<p align="center">
-  <img src="./img/img.png" alt="preview" />
-</p>
 
 <p align="center">
   <img alt="Go" src="https://img.shields.io/badge/Backend-Go-00ADD8?logo=go&logoColor=white" />
